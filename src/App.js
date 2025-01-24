@@ -4,7 +4,9 @@ import './App.css';
 
 function App() {
   return (
-    <Submarine></Submarine>
+    <Background>
+      <Submarine></Submarine>
+    </Background>
   );
 }
 
