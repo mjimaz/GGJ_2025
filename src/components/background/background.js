@@ -1,8 +1,10 @@
+import "./background.css";
+
 function Background() {
     return (
-        <div className="container">
-            <div className="background-layer-1"></div>
-            <div className="background-layer-2"></div>
+        <div className="game-background">
+            <div className="background-layer"></div>
+            <div className="background-layer"></div>
         </div>
     )
 }
