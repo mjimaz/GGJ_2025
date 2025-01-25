@@ -4,7 +4,10 @@ import './App.css';
 
 function App() {
   return (
-      <Submarine></Submarine>
+      <div className="game">
+        <Background></Background>
+        <Submarine></Submarine>
+      </div>
   );
 }
 
