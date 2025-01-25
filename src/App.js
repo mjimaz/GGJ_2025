@@ -1,13 +1,9 @@
-import Background from './components/background/background';
-import Submarine from './components/submarine/submarine';
+import Game from './components/game/game';
 import './App.css';
 
 function App() {
   return (
-      <div className="game">
-        <Background></Background>
-        <Submarine></Submarine>
-      </div>
+      <Game></Game>
   );
 }
 
