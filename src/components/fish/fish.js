@@ -1,14 +1,36 @@
 import fish1 from './fish-1.png';
+import fish2 from './fish-2.png';
+import fish3 from './fish-3.png';
+import fish4 from './fish-4.png';
 import { useEffect, useState, useRef } from "react";
 import "./fish.css";
 
+function generateRandom(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function fishImage() {
+    const number = generateRandom(4);
+    switch (number) {
+        case 1:
+            return fish1;
+        case 2:
+            return fish2;
+        case 3:
+            return fish3;
+        case 4:
+        default:
+            return fish4;
+    }
+}
+
 function Fish() {
+    const [image] = useState(fishImage());
     const [startPosition, setStartPosition] = useState({ top: getRandomTop(), right: 0 });
     const divRef = useRef(null);
 
     function getRandomTop(elementHeight = 48) {
-        const maxTop = window.innerHeight - elementHeight;
-        return Math.floor(Math.random() * maxTop);
+        return generateRandom(window.innerHeight - elementHeight);
     }
 
     useEffect(() => {
@@ -21,7 +43,7 @@ function Fish() {
 
         let startTime = null;
 
-        const animate = (currentTime) => {
+        const animateFish1 = (currentTime) => {
             if (!startTime) startTime = currentTime;
 
             const elapsedTime = currentTime - startTime;
@@ -33,11 +55,11 @@ function Fish() {
             }
 
             if (progress < 1) {
-                requestAnimationFrame(animate);
+                requestAnimationFrame(animateFish1);
             }
         };
 
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animateFish1);
     }, []); 
 
     return (
@@ -47,7 +69,7 @@ function Fish() {
             style={{
                 top: `${startPosition.top}px`,
                 right: `${startPosition.left}px`,
-                background: `url("${fish1}") repeat-x`,
+                background: `url("${image}") repeat-x`,
             }}></div>
     )
 }
