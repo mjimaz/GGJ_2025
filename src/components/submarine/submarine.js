@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from "react";
 
 function Submarine() {
   const submarineElement = useRef(null);
-  const top = 0;
-  const left = 0;
+  var top = 0;
+  var left = 0;
     function handleKeyDown(event){
 		console.log(`Key: ${event.key} with keycode ${event.keyCode} has been pressed`);
 
