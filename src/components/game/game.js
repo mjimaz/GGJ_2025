@@ -3,6 +3,7 @@ import Scorecard from '../scorecard/scorecard';
 import Submarine from '../submarine/submarine';
 import Banner from '../banner/banner';
 import Fish from '../fish/fish';
+import Missile from '../missile/missile';
 import fishCollision from './fish-collision.mp3';
 import backgroundAudio from './background-1.mp3';
 import explosion from './explosion.mp3';
@@ -14,9 +15,10 @@ function Game() {
     const [startGame, setStartGame] = useState(false);
     const [gameOver, setGameOver] = useState(false);
     const [fishes, setFishes] = useState([]);
+    const [missiles, setMissiles] = useState([]);
 
     useEffect(() => {
-      const interval = setInterval(() => {
+      const collisionCheckInterval = setInterval(() => {
         let submarine = document.getElementById('submarine');
         let fishElements = document.getElementsByClassName('fish');
         let missiles = document.getElementsByClassName('missile');
@@ -50,13 +52,16 @@ function Game() {
             gameRef.current.appendChild(audio);
             audio.play();
 
-            missile.parentElement.removeChild(missile);
-            setStartGame(false);
-            setGameOver(true);
-            setTimeout(() => gameRef.current.removeChild(audio), 10000);
+            setTimeout(() => {
+              setStartGame(false);
+              setGameOver(true);
+              setTimeout(() => gameRef.current.removeChild(audio), 10000);
+            }, 2000);
           }
         }
+      }, 100);
 
+      const fishInterval = setInterval(() => {
         setFishes((previousFishes) => [
           ...previousFishes,
           {
@@ -64,8 +69,21 @@ function Game() {
           },
         ]);
       }, 1000);
+
+      const missileInterval = setInterval(() => {
+        setMissiles((previousMissiles) => [
+          ...previousMissiles,
+          {
+            id: Date.now()
+          },
+        ]);
+      }, 1000);
   
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(fishInterval);
+        clearInterval(missileInterval);
+        clearInterval(collisionCheckInterval);
+      };
     }, []);
 
     function isColliding(el1, el2) {
@@ -88,7 +106,8 @@ function Game() {
     }
 
     function onGameOver() {
-      backgroundAudioRef.current.stop();
+      setFishes([]);
+      setMissiles([]);
       setGameOver(false);
       onGameStart();
     }
@@ -103,6 +122,9 @@ function Game() {
                 <Submarine></Submarine>
                 {fishes.map((div) => (
                   <Fish key={div.id} />
+                ))}
+                {missiles.map((div) => (
+                  <Missile key={div.id} />
                 ))}
                 <audio id="audio" ref={backgroundAudioRef} loop> 
                   <source src={backgroundAudio} type="audio/mpeg" />
