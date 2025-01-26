@@ -44,7 +44,8 @@ function Submarine() {
 
     return (
         <div ref={submarineElement}
-         className="submarine"
+          id="submarine"
+          className="submarine"
           style = {{top: `${top}px`,
           left: `${left}px`,
           background: `url("${submarine_img}") no-repeat`,
