@@ -10,8 +10,7 @@ function Submarine({ gameOver = false }) {
   const windowMaxWidth = window.innerWidth;
   const [top, setTop] = useState(windowMaxHeight - 500);
   const [left, setLeft] = useState(10);
-  const [topBubble, setTopBubble] = useState(-10);
-  const [leftBubble, setLeftBubble] = useState(-10);
+  const [bubbles, setBubbles] = useState([]);
 
   const handleKeyDown = (event) => {
     const animate = () => {
@@ -20,8 +19,7 @@ function Submarine({ gameOver = false }) {
       let currentLeft = submarineElement.current.style.left;
 
       if(e === 66) { // b key
-        setTopBubble(currentTop+ 10);
-        setLeftBubble(currentLeft + 10);
+        setBubbles((previous) => [...previous, {id: new Date()}]);
       }
 
       if (e === 40) { //down function
@@ -48,15 +46,17 @@ function Submarine({ gameOver = false }) {
 
   return (
     <div>
-    <div ref={submarineElement}
-      id="submarine"
-      className="submarine"
-      style = {{top: `${top}px`,
-      left: `${left}px`,
-      background: `url("${gameOver ? explosionImage : submarine_img}") no-repeat`,
-      transform: `rotateY(180deg)`
-    }}></div>
-    <Bubble top = {topBubble} left = {leftBubble}></Bubble>
+      <div ref={submarineElement}
+        id="submarine"
+        className="submarine"
+        style = {{top: `${top}px`,
+        left: `${left}px`,
+        background: `url("${gameOver ? explosionImage : submarine_img}") no-repeat`,
+        transform: `rotateY(180deg)`
+      }}></div>
+      {bubbles.map((div) => (
+        <Bubble key={div.id} />
+      ))}
     </div>
   )
 }
