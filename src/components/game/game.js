@@ -77,7 +77,7 @@ function Game() {
             id: Date.now()
           },
         ]);
-      }, 1000);
+      }, 5000);
   
       return () => {
         clearInterval(fishInterval);

@@ -16,33 +16,36 @@ function Missile() {
     }
 
     useEffect(() => {
-        const randomTop = Math.floor(Math.random() * (window.innerHeight - 50));
-        const startX = -50;
-        const endX = window.innerWidth + 50;
+        const startTop = 0;
+        const startRight = generateRandom(window.innerWidth * 0.5);
+        const endRight = window.innerWidth;
+        const endBottom = window.innerHeight + 50;
         const duration = 9000;
-
-        setStartPosition({ top: randomTop, right: startX });
-
+    
+        setStartPosition({ top: startTop, right: startRight });
+    
         let startTime = null;
-
-        const animateFish1 = (currentTime) => {
+    
+        const animateMissile = (currentTime) => {
             if (!startTime) startTime = currentTime;
-
+    
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
-            const currentX = startX + (endX - startX) * progress;
-
+            const currentX = startRight + (endRight - startRight) * progress;
+            const currentY = startTop + (endBottom - startTop) * progress;
+    
             if (divRef.current) {
                 divRef.current.style.right = `${currentX}px`;
+                divRef.current.style.top = `${currentY}px`;
             }
-
+    
             if (progress < 1) {
-                requestAnimationFrame(animateFish1);
+                requestAnimationFrame(animateMissile);
             }
         };
-
-        requestAnimationFrame(animateFish1);
-    }, []); 
+    
+        requestAnimationFrame(animateMissile);
+    }, []);
 
     return (
         <div
