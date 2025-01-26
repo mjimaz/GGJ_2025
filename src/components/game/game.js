@@ -11,21 +11,19 @@ function Game() {
     const gameRef = useRef(null);
     const backgroundAudioRef = useRef(null);
     const [startGame, setStartGame] = useState(false);
+    const [gameOver, setGameOver] = useState(false);
     const [fishes, setFishes] = useState([]);
 
     useEffect(() => {
       const interval = setInterval(() => {
         let submarine = document.getElementById('submarine');
         let fishElements = document.getElementsByClassName('fish');
-       
-        if (fishElements == null) {
-          fishElements = [];
-        }
+        let missiles = document.getElementsByClassName('missile');
 
         for (let index = 0; index < fishElements.length; ++index) {
           const fishElement = fishElements[index];
-          const collided = isColliding(fishElement, submarine);
-          if (collided) {
+          const fishCollided = isColliding(fishElement, submarine);
+          if (fishCollided) {
             const audio = document.createElement('audio');
             const source = document.createElement('source');
             source.type= "audio/mpeg";
@@ -35,6 +33,25 @@ function Game() {
             audio.play();
 
             fishElement.parentElement.removeChild(fishElement);
+            setTimeout(() => gameRef.current.removeChild(audio), 10000);
+          }
+        }
+
+        for (let index = 0; index < missiles.length; ++index) {
+          const missile = missiles[index];
+          const missileCollided = isColliding(missile, submarine);
+          if (missileCollided) {
+            const audio = document.createElement('audio');
+            const source = document.createElement('source');
+            source.type= "audio/mpeg";
+            source.src= fishCollision;
+            audio.appendChild(source);
+            gameRef.current.appendChild(audio);
+            audio.play();
+
+            missile.parentElement.removeChild(missile);
+            setStartGame(false);
+            setGameOver(true);
             setTimeout(() => gameRef.current.removeChild(audio), 10000);
           }
         }
@@ -69,6 +86,12 @@ function Game() {
       setTimeout(() => backgroundAudioRef.current.play(), 500);
     }
 
+    function onGameOver() {
+      backgroundAudioRef.current.stop();
+      setGameOver(false);
+      onGameStart();
+    }
+
     return (
         <div className="game" ref={gameRef}>
           {startGame ? (
@@ -85,7 +108,7 @@ function Game() {
                 </audio>
               </div>
             )
-          ) : (<Banner onStart={onGameStart}></Banner>)}
+          ) : (<Banner onStart={onGameStart} onGameOver={onGameOver} gameOver={gameOver}></Banner>)}
         </div>
     );
   }
