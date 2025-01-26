@@ -1,9 +1,11 @@
+import { useEffect, useState, useRef } from "react";
+
 function Submarine() {
     function handleKeyDown(event){
 		console.log(`Key: ${event.key} with keycode ${event.keyCode} has been pressed`);
 
       const e = event.keyCode;
-          const submarineElement = document.getElementById("submarine");
+          const submarineElement = useRef(null);
       
           if (e == 40) { //down function
               submarineElement.style.top = (parseInt(submarineElement.style.top)) + 10 + "px";
