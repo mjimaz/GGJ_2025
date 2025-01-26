@@ -55,7 +55,7 @@ function Submarine({ gameOver = false }) {
         transform: `rotateY(180deg)`
       }}></div>
       {bubbles.map((div) => (
-        <Bubble key={div.id} />
+        <Bubble key={div.id} startX={left} startY={top} />
       ))}
     </div>
   )
