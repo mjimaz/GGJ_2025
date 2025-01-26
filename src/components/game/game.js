@@ -1,12 +1,16 @@
 import Background from '../background/background';
 import Scorecard from '../scorecard/scorecard';
 import Submarine from '../submarine/submarine';
+import Banner from '../banner/banner';
 import Fish from '../fish/fish';
 import fishCollision from './fish-collision.mp3';
+import backgroundAudio from './background-1.mp3';
 import { useState, useEffect, useRef } from "react";
 
 function Game() {
     const gameRef = useRef(null);
+    const backgroundAudioRef = useRef(null);
+    const [startGame, setStartGame] = useState(false);
     const [fishes, setFishes] = useState([]);
 
     useEffect(() => {
@@ -60,14 +64,28 @@ function Game() {
         rect1.bottom > rect2.top;
     }
 
+    function onGameStart() {
+      setStartGame(true);
+      setTimeout(() => backgroundAudioRef.current.play(), 500);
+    }
+
     return (
         <div className="game" ref={gameRef}>
-          <Scorecard></Scorecard>
-          <Background></Background>
-          <Submarine></Submarine>
-          {fishes.map((div) => (
-            <Fish key={div.id} />
-          ))}
+          {startGame ? (
+            (
+              <div>
+                <Scorecard></Scorecard>
+                <Background></Background>
+                <Submarine></Submarine>
+                {fishes.map((div) => (
+                  <Fish key={div.id} />
+                ))}
+                <audio id="audio" ref={backgroundAudioRef} loop> 
+                  <source src={backgroundAudio} type="audio/mpeg" />
+                </audio>
+              </div>
+            )
+          ) : (<Banner onStart={onGameStart}></Banner>)}
         </div>
     );
   }
