@@ -42,6 +42,19 @@ function Game() {
           }
         }
 
+        for (let i = 0; i < fishElements.length; ++i) {
+          const fishElement = fishElements[i];
+          for (let j = 0; j < bubbles.length; ++j) {
+            const bubble = bubbles[j];
+            const isBubbleColliding = isColliding(fishElement, bubble);
+            if (isBubbleColliding) {
+              setFishesCaught((previous) => previous + 1);
+              fishElement.parentElement.removeChild(fishElement);
+              bubble.parentElement.removeChild(bubble);
+            }
+          }
+        }
+
         for (let index = 0; index < missiles.length; ++index) {
           const missile = missiles[index];
           const missileCollided = isSubmarineColliding(missile);
@@ -91,12 +104,16 @@ function Game() {
 
     function isSubmarineColliding(el1) {
       const submarine = document.getElementById('submarine');
-      if (!el1 || !submarine) {
+      return isColliding(el1, submarine);
+    }
+
+    function isColliding(el1, el2) {
+      if (!el1 || !el2) {
         return false;
       }
 
       const rect1 = el1.getBoundingClientRect();
-      const rect2 = submarine.getBoundingClientRect();
+      const rect2 = el2.getBoundingClientRect();
 
       return rect1.left < rect2.right &&
         rect1.right > rect2.left &&
@@ -121,7 +138,7 @@ function Game() {
           {startGame ? (
             (
               <div>
-                <Scorecard score={score}></Scorecard>
+                <Scorecard score={score} fishes={fishesCaugt}></Scorecard>
                 <Background></Background>
                 <Submarine gameOver={gameOver}></Submarine>
                 {fishes.map((div) => (
