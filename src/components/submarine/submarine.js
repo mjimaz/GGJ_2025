@@ -9,7 +9,8 @@ function Submarine() {
   const windowMaxWidth = window.innerWidth;
   const [top, setTop] = useState(windowMaxHeight - 500);
   const [left, setLeft] = useState(10);
-   
+  const [topBubble, setTopBubble] = useState();
+  const [leftBubble, setLeftBubble] = useState();
 
   const handleKeyDown = (event) => {
     const animate = () => {
@@ -18,7 +19,8 @@ function Submarine() {
       let currentLeft = submarineElement.current.style.left;
 
       if(e === 66) { // b key
-
+        setTopBubble((topBubble) => topBubble = currentTop+ 10);
+        setLeftBubble((leftBubble) => leftBubble = currentLeft + 10);
       }
 
       if (e === 40) { //down function
@@ -53,7 +55,10 @@ function Submarine() {
       background: `url("${submarine_img}") no-repeat`,
       transform: `rotateY(180deg)`
     }}></div>
-    <Bubble></Bubble>
+    <Bubble style = {{top: `${topBubble}px`,
+      left: `${leftBubble}px`,
+  }}
+      ></Bubble>
     </div>
   )
 }
