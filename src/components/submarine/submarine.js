@@ -55,10 +55,7 @@ function Submarine() {
       background: `url("${submarine_img}") no-repeat`,
       transform: `rotateY(180deg)`
     }}></div>
-    <Bubble style = {{top: `${topBubble}px`,
-      left: `${leftBubble}px`,
-  }}
-      ></Bubble>
+    <Bubble top = {topBubble} left = {leftBubble}></Bubble>
     </div>
   )
 }
