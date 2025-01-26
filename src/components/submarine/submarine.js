@@ -18,7 +18,7 @@ function Submarine({ gameOver = false }) {
       let currentTop = submarineElement.current.style.top;
       let currentLeft = submarineElement.current.style.left;
 
-      if(e === 66) { // b key
+      if(e === 66 || e == 32) { // b or space key
         setBubbles((previous) => [...previous, {id: new Date()}]);
       }
 
