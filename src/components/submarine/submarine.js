@@ -1,47 +1,56 @@
 import { useEffect, useState, useRef } from "react";
 import "./submarine.css";
+import submarine_img from './submarine.png';
+
+let keyboardKeyPressed = false;
 
 function Submarine() {
   let submarineElement = useRef(null);
-  const [top, setTop] = useState(10);
+  const windowMaxHeight = window.innerHeight;
+  const windowMaxWidth = window.innerWidth;
+  const [top, setTop] = useState(windowMaxHeight - 10);
   const [left, setLeft] = useState(10);
-    function handleKeyDown(event){
-		// console.log(`Key: ${event.key} with keycode ${event.keyCode} has been pressed`);
+   
 
+    const handleKeyDown = (event) => {
+        if(keyboardKeyPressed === true) return;
+       keyboardKeyPressed = true;
       let e = event.keyCode;
+      let currentTop = submarineElement.current.style.top;
+        let currentLeft = submarineElement.current.style.left;
           
           if (e === 40) { //down function
-              // top = top + 10;
+              if(currentTop + 10 >= windowMaxHeight) return;
               setTop((top) => top + 10);
-                 console.log('*** down - top ' + top);
           } else if (e === 37) { //left function
-            // left = left - 10;
+              if(currentLeft - 10 < 0) return;
             setLeft((left) => left - 10);
-            console.log('*** left - left ' + left);
           } else if (e === 39) { //right function
-          //  left = left+ 10 ;
+               if(currentLeft + 10 >= windowMaxWidth) return;
            setLeft((left) => left + 10);
-           console.log('*** right - left ' + left);
           } else if (e === 38) { //up function
-            // top = top - 10 ;
+               if(currentTop - 10 < 0) return;
             setTop((top) => top - 10);
-            console.log('*** up - top ' + top);
           }
+
+        keyboardKeyPressed = false;
     }
 
-    // useEffect(() => {
-    //   setCalculation(() => count * 2);
-    // }, [top, left]); 
+    useEffect(() => {
+      document.addEventListener('keydown', handleKeyDown);
+    }, []); 
 
-    document.addEventListener('keydown', handleKeyDown);
+    
 
     return (
         <div ref={submarineElement}
          className="submarine"
-        style = {{top: `${top}px`,
-          left: `${left}px` 
+          style = {{top: `${top}px`,
+          left: `${left}px`,
+          background: `url("${submarine_img}") no-repeat`,
+          transform: `rotateY(180deg)`
         }}
-        >submarine</div>
+        ></div>
     )
 }
 
