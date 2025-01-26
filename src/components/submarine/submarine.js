@@ -47,13 +47,14 @@ function Submarine({ gameOver = false }) {
   return (
     <div>
       <div ref={submarineElement}
-        id="submarine"
         className="submarine"
         style = {{top: `${top}px`,
         left: `${left}px`,
         background: `url("${gameOver ? explosionImage : submarine_img}") no-repeat`,
         transform: `rotateY(180deg)`
-      }}></div>
+      }}>
+        <div id="submarine" className="submarine-collision-area"></div>
+      </div>
       {bubbles.map((div) => (
         <Bubble key={div.id} startX={left} startY={top} />
       ))}

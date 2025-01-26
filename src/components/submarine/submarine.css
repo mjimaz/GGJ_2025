@@ -2,5 +2,14 @@
     position: absolute;
     height: 256px;
     width: 256px;
-    transition: "top 0.05s linear, left 0.05s linear";
+    transition: top 0.05s linear, left 0.05s linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submarine-collision-area {
+    width: 238px;
+    height: 54px;
+    margin-top: 80px;
 }
