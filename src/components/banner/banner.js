@@ -3,7 +3,7 @@ import "./banner.css";
 function Banner({ onStart }) {
     return (
         <div className="banner">
-            <p className="title">GGJ_2025 Subhunt</p>
+            <h1 className="title">GGJ_2025 Subhunt</h1>
             <p className="description">
                 Dive into an underwater adventure in Bubble Submarine!
                 Navigate your submarine through vibrant ocean depths,
