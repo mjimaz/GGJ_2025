@@ -8,7 +8,7 @@ function Submarine() {
   let submarineElement = useRef(null);
   const windowMaxHeight = window.innerHeight;
   const windowMaxWidth = window.innerWidth;
-  const [top, setTop] = useState(windowMaxHeight - 250);
+  const [top, setTop] = useState(windowMaxHeight - 500);
   const [left, setLeft] = useState(10);
    
 
