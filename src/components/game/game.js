@@ -5,6 +5,7 @@ import Banner from '../banner/banner';
 import Fish from '../fish/fish';
 import fishCollision from './fish-collision.mp3';
 import backgroundAudio from './background-1.mp3';
+import explosion from './explosion.mp3';
 import { useState, useEffect, useRef } from "react";
 
 function Game() {
@@ -44,7 +45,7 @@ function Game() {
             const audio = document.createElement('audio');
             const source = document.createElement('source');
             source.type= "audio/mpeg";
-            source.src= fishCollision;
+            source.src= explosion;
             audio.appendChild(source);
             gameRef.current.appendChild(audio);
             audio.play();
