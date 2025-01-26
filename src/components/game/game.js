@@ -2,9 +2,11 @@ import Background from '../background/background';
 import Scorecard from '../scorecard/scorecard';
 import Submarine from '../submarine/submarine';
 import Fish from '../fish/fish';
+import fishCollision from './fish-collision.mp3';
 import { useState, useEffect, useRef } from "react";
 
 function Game() {
+    const gameRef = useRef(null);
     const [fishes, setFishes] = useState([]);
 
     useEffect(() => {
@@ -20,7 +22,16 @@ function Game() {
           const fishElement = fishElements[index];
           const collided = isColliding(fishElement, submarine);
           if (collided) {
-            console.log("Fish collided");
+            const audio = document.createElement('audio');
+            const source = document.createElement('source');
+            source.type= "audio/mpeg";
+            source.src= fishCollision;
+            audio.appendChild(source);
+            gameRef.current.appendChild(audio);
+            audio.play();
+
+            fishElement.parentElement.removeChild(fishElement);
+            setTimeout(() => gameRef.current.removeChild(audio), 10000);
           }
         }
 
@@ -50,7 +61,7 @@ function Game() {
     }
 
     return (
-        <div className="game">
+        <div className="game" ref={gameRef}>
           <Scorecard></Scorecard>
           <Background></Background>
           <Submarine></Submarine>
