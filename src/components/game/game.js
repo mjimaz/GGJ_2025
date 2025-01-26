@@ -6,7 +6,7 @@ import Fish from '../fish/fish';
 import Missile from '../missile/missile';
 import fishCollision from './fish-collision.mp3';
 import backgroundAudio from './background-1.mp3';
-import explosion from './explosion.mp3';
+import explosionAudio from './explosion.mp3';
 import { useState, useEffect, useRef } from "react";
 
 function Game() {
@@ -47,16 +47,16 @@ function Game() {
             const audio = document.createElement('audio');
             const source = document.createElement('source');
             source.type= "audio/mpeg";
-            source.src= explosion;
+            source.src= explosionAudio;
             audio.appendChild(source);
             gameRef.current.appendChild(audio);
             audio.play();
+            setGameOver(true);
 
             setTimeout(() => {
               setStartGame(false);
-              setGameOver(true);
               setTimeout(() => gameRef.current.removeChild(audio), 10000);
-            }, 2000);
+            }, 3000);
           }
         }
       }, 100);
@@ -119,12 +119,12 @@ function Game() {
               <div>
                 <Scorecard></Scorecard>
                 <Background></Background>
-                <Submarine></Submarine>
+                <Submarine gameOver={gameOver}></Submarine>
                 {fishes.map((div) => (
                   <Fish key={div.id} />
                 ))}
                 {missiles.map((div) => (
-                  <Missile key={div.id} />
+                  <Missile key={div.id} gameOver={gameOver} />
                 ))}
                 <audio id="audio" ref={backgroundAudioRef} loop> 
                   <source src={backgroundAudio} type="audio/mpeg" />

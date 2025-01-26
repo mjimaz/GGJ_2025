@@ -6,7 +6,7 @@ function generateRandom(max) {
     return Math.floor(Math.random() * max);
 }
 
-function Missile() {
+function Missile({ gameOver = false }) {
     const [image] = useState({url: missile});
     const [startPosition, setStartPosition] = useState({ top: getRandomTop(), right: 0 });
     const divRef = useRef(null);
@@ -47,7 +47,7 @@ function Missile() {
         requestAnimationFrame(animateMissile);
     }, []);
 
-    return (
+    return gameOver ? null : (
         <div
             ref={divRef}
             className={`missile`}

@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import "./submarine.css";
 import submarine_img from './submarine.png';
+import explosionImage from './explosion.png';
 import Bubble from '../bubble/bubble';
 
-function Submarine() {
+function Submarine({ gameOver = false }) {
   let submarineElement = useRef(null);
   const windowMaxHeight = window.innerHeight;
   const windowMaxWidth = window.innerWidth;
@@ -19,8 +20,8 @@ function Submarine() {
       let currentLeft = submarineElement.current.style.left;
 
       if(e === 66) { // b key
-        setTopBubble((topBubble) => topBubble = currentTop+ 10);
-        setLeftBubble((leftBubble) => leftBubble = currentLeft + 10);
+        setTopBubble(currentTop+ 10);
+        setLeftBubble(currentLeft + 10);
       }
 
       if (e === 40) { //down function
@@ -52,7 +53,7 @@ function Submarine() {
       className="submarine"
       style = {{top: `${top}px`,
       left: `${left}px`,
-      background: `url("${submarine_img}") no-repeat`,
+      background: `url("${gameOver ? explosionImage : submarine_img}") no-repeat`,
       transform: `rotateY(180deg)`
     }}></div>
     <Bubble top = {topBubble} left = {leftBubble}></Bubble>
