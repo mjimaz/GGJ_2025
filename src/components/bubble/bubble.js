@@ -18,6 +18,7 @@ function Bubble({ startX = 0, startY = 0, collided = false }) {
         let startTime = null;
 
         const animate = (currentTime) => {
+            if (divRef == null || divRef.current == null) return;
             if (divRef.current.style.left > window.innerWidth) {
                 setBubbleCollided(true);
                 return;
@@ -28,6 +29,11 @@ function Bubble({ startX = 0, startY = 0, collided = false }) {
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
             const currentX = randomLeft + (endX - randomLeft) * progress;
+
+            if (currentX >= window.innerWidth) {
+                setBubbleCollided(true);
+                return;
+            }
             
             if (divRef.current) {
                 divRef.current.style.left = `${currentX}px`;
