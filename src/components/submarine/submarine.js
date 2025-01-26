@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 
 function Submarine() {
-  const submarineElement = useRef(null);
-  var top = 0;
-  var left = 0;
+  let submarineElement = useRef(null);
+  let top = 0;
+  let left = 0;
     function handleKeyDown(event){
 		console.log(`Key: ${event.key} with keycode ${event.keyCode} has been pressed`);
 
-      const e = event.keyCode;
+      let e = event.keyCode;
           
           if (e == 40) { //down function
               top = top + 10;
