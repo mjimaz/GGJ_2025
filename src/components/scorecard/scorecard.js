@@ -7,7 +7,7 @@ function Scorecard() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setScore(score + 1);
+            setScore((previousScore) => previousScore + 1);
         }, 1000);
 
         return () => clearInterval(interval);
