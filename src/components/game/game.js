@@ -37,7 +37,7 @@ function Game() {
             gameRef.current.appendChild(audio);
             audio.play();
 
-            fishElement.parentElement.removeChild(fishElement);
+            fishElement.style.display = 'none';
             setTimeout(() => gameRef.current.removeChild(audio), 10000);
           }
         }
@@ -49,8 +49,8 @@ function Game() {
             const isBubbleColliding = isColliding(fishElement, bubble);
             if (isBubbleColliding) {
               setFishesCaught((previous) => previous + 1);
-              fishElement.parentElement.removeChild(fishElement);
-              bubble.parentElement.removeChild(bubble);
+              fishElement.style.display = 'none';
+              bubble.style.display = 'none';
             }
           }
         }
