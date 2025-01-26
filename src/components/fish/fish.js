@@ -13,14 +13,14 @@ function fishImage() {
     const number = generateRandom(4);
     switch (number) {
         case 1:
-            return fish1;
+            return {className: 'fish-1', url: fish1};
         case 2:
-            return fish2;
+            return {className: 'fish-2', url: fish2};
         case 3:
-            return fish3;
+            return {className: 'fish-3', url: fish3};
         case 4:
         default:
-            return fish4;
+            return {className: 'fish-4', url: fish4};
     }
 }
 
@@ -65,11 +65,11 @@ function Fish() {
     return (
         <div
             ref={divRef}
-            className="fish"
+            className={`fish ${image.className}`}
             style={{
                 top: `${startPosition.top}px`,
                 right: `${startPosition.left}px`,
-                background: `url("${image}") repeat-x`,
+                background: `url("${image.url}") repeat-x`,
             }}></div>
     )
 }

@@ -4,3 +4,9 @@
     width: 48px;
     position: absolute;
 }
+
+.fish.fish-2,
+.fish.fish-3,
+.fish.fish-4 {
+    transform: rotateY(180deg)
+}
