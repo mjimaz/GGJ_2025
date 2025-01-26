@@ -9,8 +9,8 @@ function Submarine() {
   const windowMaxWidth = window.innerWidth;
   const [top, setTop] = useState(windowMaxHeight - 500);
   const [left, setLeft] = useState(10);
-  const [topBubble, setTopBubble] = useState();
-  const [leftBubble, setLeftBubble] = useState();
+  const [topBubble, setTopBubble] = useState(-10);
+  const [leftBubble, setLeftBubble] = useState(-10);
 
   const handleKeyDown = (event) => {
     const animate = () => {
