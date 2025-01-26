@@ -1,18 +1,6 @@
-import { useEffect, useState } from 'react';
 import "./scorecard.css";
 
-function Scorecard() {
-    const [score, setScore] = useState(0)
-    const [fishes] = useState(0)
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setScore((previousScore) => previousScore + 1);
-        }, 1000);
-
-        return () => clearInterval(interval);
-    });
-
+function Scorecard({ fishes = 0, score = 0}) {
     return (
         <div className="scorecard">
             <div className="score pane">

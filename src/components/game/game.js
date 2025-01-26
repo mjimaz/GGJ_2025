@@ -16,6 +16,8 @@ function Game() {
     const [gameOver, setGameOver] = useState(false);
     const [fishes, setFishes] = useState([]);
     const [missiles, setMissiles] = useState([]);
+    const [score, setScore] = useState(0);
+    const [fishesCaugt, setFishesCaught] = useState(0);
 
     useEffect(() => {
       const collisionCheckInterval = setInterval(() => {
@@ -67,6 +69,7 @@ function Game() {
             id: Date.now()
           },
         ]);
+        setScore((previousScore) => previousScore + 1);
       }, 1000);
 
       const missileInterval = setInterval(() => {
@@ -117,7 +120,7 @@ function Game() {
           {startGame ? (
             (
               <div>
-                <Scorecard></Scorecard>
+                <Scorecard score={score}></Scorecard>
                 <Background></Background>
                 <Submarine gameOver={gameOver}></Submarine>
                 {fishes.map((div) => (
