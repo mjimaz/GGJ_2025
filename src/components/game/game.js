@@ -77,6 +77,8 @@ function Game() {
       }, 100);
 
       const fishInterval = setInterval(() => {
+        if (document.hidden) return;
+
         setFishes((previousFishes) => [
           ...previousFishes,
           {
@@ -87,6 +89,8 @@ function Game() {
       }, 1000);
 
       const missileInterval = setInterval(() => {
+        if (document.hidden) return;
+        
         setMissiles((previousMissiles) => [
           ...previousMissiles,
           {
