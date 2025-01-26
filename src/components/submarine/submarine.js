@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import "./submarine.css";
 import submarine_img from './submarine.png';
+import Bubble from '../bubble/bubble';
 
 function Submarine() {
   let submarineElement = useRef(null);
@@ -15,6 +16,10 @@ function Submarine() {
       let e = event.keyCode;
       let currentTop = submarineElement.current.style.top;
       let currentLeft = submarineElement.current.style.left;
+
+      if(e === 66) { // b key
+
+      }
 
       if (e === 40) { //down function
         if(currentTop + 10 >= windowMaxHeight) return;
@@ -39,6 +44,7 @@ function Submarine() {
   }, []); 
 
   return (
+    <div>
     <div ref={submarineElement}
       id="submarine"
       className="submarine"
@@ -47,6 +53,8 @@ function Submarine() {
       background: `url("${submarine_img}") no-repeat`,
       transform: `rotateY(180deg)`
     }}></div>
+    <Bubble></Bubble>
+    </div>
   )
 }
 
