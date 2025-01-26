@@ -19,13 +19,12 @@ function Game() {
 
     useEffect(() => {
       const collisionCheckInterval = setInterval(() => {
-        let submarine = document.getElementById('submarine');
-        let fishElements = document.getElementsByClassName('fish');
-        let missiles = document.getElementsByClassName('missile');
+        const fishElements = document.getElementsByClassName('fish');
+        const missiles = document.getElementsByClassName('missile');
 
         for (let index = 0; index < fishElements.length; ++index) {
           const fishElement = fishElements[index];
-          const fishCollided = isColliding(fishElement, submarine);
+          const fishCollided = isSubmarineColliding(fishElement);
           if (fishCollided) {
             const audio = document.createElement('audio');
             const source = document.createElement('source');
@@ -42,7 +41,7 @@ function Game() {
 
         for (let index = 0; index < missiles.length; ++index) {
           const missile = missiles[index];
-          const missileCollided = isColliding(missile, submarine);
+          const missileCollided = isSubmarineColliding(missile);
           if (missileCollided) {
             const audio = document.createElement('audio');
             const source = document.createElement('source');
@@ -86,18 +85,19 @@ function Game() {
       };
     }, []);
 
-    function isColliding(el1, el2) {
-      if (!el1 || !el2) {
+    function isSubmarineColliding(el1) {
+      const submarine = document.getElementById('submarine');
+      if (!el1 || !submarine) {
         return false;
       }
 
       const rect1 = el1.getBoundingClientRect();
-      const rect2 = el2.getBoundingClientRect();
+      const rect2 = submarine.getBoundingClientRect();
 
-      return rect1.left < rect2.right &&
-        rect1.right > rect2.left &&
-        rect1.top < rect2.bottom &&
-        rect1.bottom > rect2.top;
+      return rect1.left < (rect2.right * 0.5) &&
+        rect1.right > (rect2.left * 0.5) &&
+        rect1.top < (rect2.bottom * 0.5) &&
+        rect1.bottom > (rect2.top * 0.5);
     }
 
     function onGameStart() {
