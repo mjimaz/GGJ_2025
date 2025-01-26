@@ -2,27 +2,33 @@ import { useEffect, useState, useRef } from "react";
 import "./bubble.css";
 import bubble_img from './bubble.png';
 
-function Bubble(props) {
+function Bubble({ startX = 0, startY = 0, collided = false }) {
     const divRef = useRef(null);
-    const [startPosition, setStartPosition] = useState({ top: props.startY + 64, left: props.startX + 256 });
+    const [bubbleCollided, setBubbleCollided] = useState(collided);
+    const [startPosition, setStartPosition] = useState({ top: startY + 64, left: startX + 256 });
 
     useEffect(() => {
-        const randomTop = props.startY + 64;
-        const startX = props.startX + 256;
+        const randomTop = startY + 64;
+        const randomLeft =  startX + 256;
         const endX = window.innerWidth;
         const duration = 1000;
 
-        setStartPosition({ top: randomTop, left: startX });
+        setStartPosition({ top: randomTop, left: randomLeft });
 
         let startTime = null;
 
         const animate = (currentTime) => {
+            if (divRef.current.style.left > window.innerWidth) {
+                setBubbleCollided(true);
+                return;
+            }
+
             if (!startTime) startTime = currentTime;
 
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
-            const currentX = startX + (endX - startX) * progress;
-
+            const currentX = randomLeft + (endX - randomLeft) * progress;
+            
             if (divRef.current) {
                 divRef.current.style.left = `${currentX}px`;
             }
@@ -37,7 +43,7 @@ function Bubble(props) {
 
 
 
-    return (
+    return bubbleCollided ? null : (
         <div
           ref={divRef}
           id="bubble"

@@ -23,6 +23,7 @@ function Game() {
       const collisionCheckInterval = setInterval(() => {
         const fishElements = document.getElementsByClassName('fish');
         const missiles = document.getElementsByClassName('missile');
+        const bubbles = document.getElementsByClassName('bubble');
 
         for (let index = 0; index < fishElements.length; ++index) {
           const fishElement = fishElements[index];
