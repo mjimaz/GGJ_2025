@@ -29,8 +29,8 @@ function Submarine() {
     return (
         <div ref={submarineElement}
          className="submarine"
-        style = {{top: '${top}px',
-          left: '${left}px' 
+        style = {{top: `${top}px`,
+          left: `${left}px` 
         }}
         >submarine</div>
     )
